@@ -24,6 +24,7 @@ public class Gr9JuegoAlgoritmos {
         System.out.println("PC 2");
         System.out.println("pc david");
         JOptionPane.showMessageDialog(null, "prueba sincronizacion");
+        JOptionPane.showMessageDialog(null, "prueba sincronizacion");
         
     }
     
