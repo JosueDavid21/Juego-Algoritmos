@@ -26,6 +26,7 @@ public class Gr9JuegoAlgoritmos {
         JOptionPane.showMessageDialog(null, "prueba sincronizacion");
         JOptionPane.showMessageDialog(null, "prueba sincronizacion");
         JOptionPane.showMessageDialog(null, "prueba sincronizacion");
+        JOptionPane.showMessageDialog(null, "prueba sincronizacion");
         
     }
     
