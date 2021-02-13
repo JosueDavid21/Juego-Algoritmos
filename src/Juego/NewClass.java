@@ -17,5 +17,9 @@ public class NewClass {
     public void nombre(String name, String apellido){
         System.out.println(name + " " + apellido);
         System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
     }
 }
