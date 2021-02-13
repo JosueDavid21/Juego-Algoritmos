@@ -18,7 +18,8 @@ public class Gr9JuegoAlgoritmos {
         // TODO code application logic here
         
         System.out.println("?");
-         System.out.println("?");
+        System.out.println("?");
+        System.out.println("PC 2");
         
     }
     
