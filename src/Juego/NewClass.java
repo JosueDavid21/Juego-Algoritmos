@@ -21,5 +21,11 @@ public class NewClass {
         System.out.println("");
         System.out.println("");
         System.out.println("");
+        System.out.println(name + " " + apellido);
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
     }
 }
