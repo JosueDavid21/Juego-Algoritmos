@@ -5,6 +5,8 @@
  */
 package gr9.juego.algoritmos;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Josue
@@ -20,6 +22,8 @@ public class Gr9JuegoAlgoritmos {
         System.out.println("?");
         System.out.println("?");
         System.out.println("PC 2");
+        System.out.println("pc david");
+        JOptionPane.showMessageDialog(null, "prueba sincronizacion");
         
     }
     
