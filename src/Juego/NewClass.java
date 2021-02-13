@@ -14,7 +14,8 @@ public class NewClass {
     public NewClass() {
     }
     
-    public void nombre(String name){
-        System.out.println(name);
+    public void nombre(String name, String apellido){
+        System.out.println(name + " " + apellido);
+        System.out.println("");
     }
 }
