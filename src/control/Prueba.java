@@ -15,8 +15,10 @@ public class Prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String ruta = "src/json/amor.json";
-        System.out.println(new GenerarMapa(ruta).leerArchivoTexto());
+        String separador = System.getProperty("file.separator");
+        String ruta = separador + "src" + separador + "json" + separador + "amor.json";
+        System.out.println(ruta);
+        System.out.println(new GenerarMapa(ruta).leerArchivoJSON());
     }
     
 }
