@@ -5,11 +5,20 @@
  */
 package control;
 
-import java.awt.Rectangle;
+import entes.Puente;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.ParseException;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -18,93 +27,90 @@ import java.io.InputStreamReader;
 public class GenerarMapa {
 
     private String ruta;
-    
+    private ArrayList<Puente> listaObstaculos;
+
     public GenerarMapa(String ruta) {
         this.ruta = ruta;
     }
 
-    public String leerArchivoTexto() {
+    public String leerArchivoJSON() {
         String contenido = "";
-        InputStream entradaBytes = ClassLoader.class.getResourceAsStream(ruta);
-        BufferedReader lector = new BufferedReader(new InputStreamReader(entradaBytes));
-        String linea;
+        FileReader entradaBytes;
         try {
-            while ((linea = lector.readLine()) != null) {
-                contenido += linea;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+            entradaBytes = new FileReader(new File(ruta));
+            BufferedReader lector = new BufferedReader(entradaBytes);
+            String linea;
             try {
-                if (entradaBytes != null) {
-                    entradaBytes.close();
+                while ((linea = lector.readLine()) != null) {
+                    contenido += linea;
                 }
-                if (lector != null) {
-                    lector.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (entradaBytes != null) {
+                        entradaBytes.close();
+                    }
+                    if (lector != null) {
+                        lector.close();
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
-            } catch (IOException ex) {
-                ex.printStackTrace();
             }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GenerarMapa.class.getName()).log(Level.SEVERE, null, ex);
         }
         return contenido;
     }
 
-    private void obtenerMatriz() {
-//        //CAPAS
-//        JSONArray capas = obtenerArrayJSON(globalJSON.get("layers").toString());
-//
-//        //INICIAR CAPAS
-//        for (int i = 0; i < capas.size(); i++) {
-//            JSONObject datosCapa = obtenerObjetoJSON(capas.get(i).toString());
-//
-//            int anchoCapa = obtenerIntDesdeJSON(datosCapa, "width");
-//            int altoCapa = obtenerIntDesdeJSON(datosCapa, "height");
-//            int xCapa = obtenerIntDesdeJSON(datosCapa, "x");
-//            int yCapa = obtenerIntDesdeJSON(datosCapa, "y");
-//            String tipo = datosCapa.get("type").toString();
-//
-//            switch (tipo) {
-//                case "tilelayer":
-//                    JSONArray sprites = obtenerArrayJSON(datosCapa.get("data").toString());
-//                    int[] spritesCapa = new int[sprites.size()];
-//                    for (int j = 0; j < sprites.size(); j++) {
-//                        int codigoSprite = Integer.parseInt(sprites.get(j).toString());
-//                        spritesCapa[j] = codigoSprite - 1;
-//                    }
-//                    this.capasSprites.add(new CapaSprites(anchoCapa, altoCapa, xCapa, yCapa, spritesCapa));
-//                    break;
-//                case "objectgroup":
-//                    JSONArray rectangulos = obtenerArrayJSON(datosCapa.get("objects").toString());
-//                    Rectangle[] rectangulosCapa = new Rectangle[rectangulos.size()];
-//                    for (int j = 0; j < rectangulos.size(); j++) {
-//                        JSONObject datosRectangulo = obtenerObjetoJSON(rectangulos.get(j).toString());
-//
-//                        int x = obtenerIntDesdeJSON(datosRectangulo, "x");
-//                        int y = obtenerIntDesdeJSON(datosRectangulo, "y");
-//                        int ancho = obtenerIntDesdeJSON(datosRectangulo, "width");
-//                        int alto = obtenerIntDesdeJSON(datosRectangulo, "height");
-//
-//                        if (x == 0) {
-//                            x = 1;
-//                        }
-//                        if (y == 0) {
-//                            y = 1;
-//                        }
-//                        if (ancho == 0) {
-//                            ancho = 1;
-//                        }
-//                        if (alto == 0) {
-//                            alto = 1;
-//                        }
-//
-//                        Rectangle rectangulo = new Rectangle(x, y, ancho, alto);
-//                        rectangulosCapa[j] = rectangulo;
-//                    }
-//                    this.capasColisiones.add(new CapaColisiones(anchoCapa, altoCapa, xCapa, yCapa, rectangulosCapa));
-//
-//                    break;
-//            }
-//        }
+    public int[][] obtenerMatriz() {
+        int[][] matriz = new int[32][20];
+        String contenido = leerArchivoJSON();
+        JSONObject globalJSON = obtenerObjetoJSON(contenido);
+        //          LAYERS
+        JSONArray layers = obtenerArrayJSON(globalJSON.get("layers").toString());
+        JSONArray tiles = obtenerArrayJSON(obtenerObjetoJSON(layers.get(0).toString()).get("tiles").toString());
+        JSONObject objeto;
+        int x, y, tile;
+        for (int i = 0; i < tiles.size(); i++) {
+            objeto = obtenerObjetoJSON(tiles.get(i).toString());
+            x = obtenerIntDesdeJSON(objeto, "x");
+            y = obtenerIntDesdeJSON(objeto, "y");
+            tile = obtenerIntDesdeJSON(objeto, "tile");
+            matriz[x][y] = tile;
+        }
+        return matriz;
+    }  
+    
+    private int obtenerIntDesdeJSON(JSONObject objetoJSON, String clave) {
+        return Integer.parseInt(objetoJSON.get(clave).toString());
+    }
+
+    private JSONObject obtenerObjetoJSON(String codigoJSON) {
+        JSONParser lector = new JSONParser();
+        JSONObject objetoJSON = null;
+        try {
+            Object recuperado = lector.parse(codigoJSON);
+            objetoJSON = (JSONObject) recuperado;
+        } catch (ParseException e) {
+            System.out.println("Posicion: " + e.getPosition());
+            System.out.println(e);
+        }
+        return objetoJSON;
+    }
+
+    private JSONArray obtenerArrayJSON(final String codigoJSON) {
+        JSONParser lector = new JSONParser();
+        JSONArray arrayJSON = null;
+        try {
+            Object recuperado = lector.parse(codigoJSON);
+            arrayJSON = (JSONArray) recuperado;
+        } catch (ParseException e) {
+            System.out.println("Posicion: " + e.getPosition());
+            System.out.println(e);
+        }
+        return arrayJSON;
     }
 
 }

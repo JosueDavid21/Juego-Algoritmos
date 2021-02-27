@@ -5,7 +5,7 @@
  */
 package vistas;
 
-import islas.IslaCalavera;
+import entes.Mapa;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -29,7 +29,7 @@ public class Isla extends javax.swing.JFrame {
     private static int yJugador = height / 2;
     private static String rutaPersonaje;
     private static String rutaIsla;
-    private Dimension cuadro;
+    private final Dimension cuadro;
     private int[][] matrizIsla;
     private static final int CUADROS_VERT = 20;
     private static final int CUADROS_HOR = 32;
@@ -37,10 +37,10 @@ public class Isla extends javax.swing.JFrame {
     JLabel jLpersonaje = new JLabel();
     JLabel jLMapa = new JLabel();
 
-    public Isla() {
-        rutaIsla = "src/imagenes/islas/MapaPrueba.png";
+    public Isla(Mapa isla) {
+        rutaIsla = isla.getUrlImagen();
         rutaPersonaje = "src/imagenes/personajes/protagonista.jpg";
-        matrizIsla = new IslaCalavera().getMatriz();
+        matrizIsla = isla.getMatriz();
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setSize(width, height);
@@ -49,12 +49,8 @@ public class Isla extends javax.swing.JFrame {
         this.setBackground(Color.BLUE);
 
         cuadro = generarDimCuadro();
-//        compararChoques();
         generarPersonaje(rutaPersonaje);
         generarIsla();
-        
-//        System.out.println("w " + width + "   h " + height);
-//        System.out.println("w " + cuadro.width + "   h " + cuadro.height);
     }
 
     private Dimension generarDimCuadro() {
@@ -80,25 +76,6 @@ public class Isla extends javax.swing.JFrame {
         jLMapa.setIcon(icono);
         add(jLMapa);
         this.repaint();
-    }
-
-    private void compararChoques() {
-        int[][] m = new IslaCalavera().getMatriz();
-        for (int i = 0; i < m.length; i++) {
-            for (int j = 0; j < m[i].length; j++) {
-                if (m[i][j] > 0) {
-                    JLabel label21 = new JLabel();
-                    label21.setSize(cuadro.width, cuadro.height);
-                    label21.setBackground(Color.red);
-                    label21.setForeground(Color.red);
-                    label21.setText(String.valueOf(j));
-                    label21.setLocation(j * cuadro.width, i * cuadro.height);
-                    label21.setVisible(true);
-                    add(label21);
-                }
-
-            }
-        }
     }
 
     private void generarPersonaje(String ruta) {
@@ -135,28 +112,27 @@ public class Isla extends javax.swing.JFrame {
         
     }
 
-
     public boolean comprobar(char tecla, int x, int y) {
-        int j = x/cuadro.width;
-        int i = y/cuadro.height;
+        int i = x/cuadro.width;
+        int j = y/cuadro.height;
         int valorProximo = 0;
         switch(String.valueOf(tecla)){
             case "w":
-                valorProximo = matrizIsla[i-1][j];
-                break;
-            case "s":
-                valorProximo = matrizIsla[i+1][j];
-                break;
-            case "a":
                 valorProximo = matrizIsla[i][j-1];
                 break;
-            case "d":
+            case "s":
                 valorProximo = matrizIsla[i][j+1];
+                break;
+            case "a":
+                valorProximo = matrizIsla[i-1][j];
+                break;
+            case "d":
+                valorProximo = matrizIsla[i+1][j];
                 break;
             default:
                 break;
         }
-        return valorProximo < 1;
+        return valorProximo < 11;
     }
     
     /**
@@ -189,37 +165,37 @@ public class Isla extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Isla().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Isla().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

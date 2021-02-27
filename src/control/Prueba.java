@@ -5,6 +5,11 @@
  */
 package control;
 
+import entes.Mapa;
+import java.util.HashMap;
+import listas.ListaMapas;
+import vistas.Isla;
+
 /**
  *
  * @author grace
@@ -15,10 +20,12 @@ public class Prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String separador = System.getProperty("file.separator");
-        String ruta = separador + "src" + separador + "json" + separador + "amor.json";
-        System.out.println(ruta);
-        System.out.println(new GenerarMapa(ruta).leerArchivoJSON());
+//        String separador = System.getProperty("file.separator");
+        String ruta =  "C:\\Users\\grace\\Desktop\\Prueba\\src\\prueba\\amor.json";
+        
+        HashMap lista = new ListaMapas().getLista();
+        new Isla((Mapa) lista.get("amor")).setVisible(true);
+
     }
     
 }
