@@ -5,7 +5,7 @@
  */
 package vistas;
 
-import entes.Mapa;
+import entes.Isla;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -18,7 +18,7 @@ import javax.swing.JLabel;
  *
  * @author grace
  */
-public class Isla extends javax.swing.JFrame {
+public class VistaIsla extends javax.swing.JFrame {
 
     /**
      * Creates new form Isla
@@ -37,7 +37,7 @@ public class Isla extends javax.swing.JFrame {
     JLabel jLpersonaje = new JLabel();
     JLabel jLMapa = new JLabel();
 
-    public Isla(Mapa isla) {
+    public VistaIsla(Isla isla) {
         rutaIsla = isla.getUrlImagen();
         rutaPersonaje = "src/imagenes/personajes/protagonista.jpg";
         matrizIsla = isla.getMatriz();

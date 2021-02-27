@@ -5,8 +5,8 @@
  */
 package listas;
 
-import control.GenerarMapa;
-import entes.Mapa;
+import control.GenerarIsla;
+import entes.Isla;
 import java.util.HashMap;
 
 /**
@@ -15,13 +15,14 @@ import java.util.HashMap;
  */
 public class ListaMapas {
     
-    private final HashMap<String, Mapa> lista = new HashMap<>();
+    private final HashMap<String, Isla> lista = new HashMap<>();
     private final String separador = System.getProperty("file.separator");
     
     public ListaMapas() {
     }
     
     private String getRutaIMG(){
+        
         return "C:\\Users\\grace\\Desktop\\JosueTemp\\Algoritmos\\Juego-Algoritmos\\src\\imagenes\\islas\\";
 //        return separador + "Juego-Algoritmos" + separador + "src" + separador + "imagenes" + separador + "islas" + separador;
     }
@@ -31,10 +32,10 @@ public class ListaMapas {
 //        return separador + "Juego-Algoritmos" + separador + "src" + separador + "json" + separador;
     }
     
-    public HashMap<String, Mapa> getLista() {
-        lista.put("amor", new Mapa("amor", getRutaIMG()+"amor.png", new GenerarMapa(getRutaJSON().concat("amor.json")).obtenerMatriz()));
-        lista.put("calavera", new Mapa("calavera", getRutaIMG()+"calavera.png", new GenerarMapa(getRutaJSON().concat("calavera.json")).obtenerMatriz()));
-        lista.put("volcan", new Mapa("volcan", getRutaIMG()+"volcan.png", new GenerarMapa(getRutaJSON().concat("volcan.json")).obtenerMatriz()));
+    public HashMap<String, Isla> getLista() {
+        lista.put("amor", new Isla("amor", getRutaIMG()+"amor.png", new GenerarIsla(getRutaJSON().concat("amor.json")).obtenerMatriz()));
+        lista.put("calavera", new Isla("calavera", getRutaIMG()+"calavera.png", new GenerarIsla(getRutaJSON().concat("calavera.json")).obtenerMatriz()));
+        lista.put("volcan", new Isla("volcan", getRutaIMG()+"volcan.png", new GenerarIsla(getRutaJSON().concat("volcan.json")).obtenerMatriz()));
 
         
         

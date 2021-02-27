@@ -9,13 +9,13 @@ package entes;
  *
  * @author grace
  */
-public class Mapa {
+public class Isla {
     
     private final String nombre;
     private final String imagen;
     private final int[][] matriz;
 
-    public Mapa(final String nombre, final String imagen, final int [][] matriz) {
+    public Isla(final String nombre, final String imagen, final int [][] matriz) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.matriz = matriz;
