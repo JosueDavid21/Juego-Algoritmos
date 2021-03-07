@@ -17,14 +17,27 @@ public class barra {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-      VistaInicial pre = new VistaInicial();
+//    VistaInicial pre = new VistaInicial();
+//    pre.setVisible(true);
+//    IngresoUsuario iniciar = new IngresoUsuario();
+//    try{  
+//    
+//        for (int i = 0; i <= 100; i++) {
+//            Thread.sleep(50);
+//            pre.pro
+//        }
+    
+//    }catch(Exeption e){}
+//            
+        VistaInicial pre = new VistaInicial();
       pre.setVisible(true);
-      VistaMenu iniciar = new VistaMenu(pre, true);
+      IngresoUsuario iniciar = new IngresoUsuario();
       try {
           for (int i = 0; i <= 100; i++) {
-              Thread.sleep(80);
+              Thread.sleep(90);
               pre.progreso.setText(Integer.toString(i)+"%");
               pre.barra.setValue(i);
+              
               
               if(i==100){
                   pre.setVisible(false);
