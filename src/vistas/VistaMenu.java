@@ -5,6 +5,10 @@
  */
 package vistas;
 
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author grace
@@ -17,6 +21,17 @@ public class VistaMenu extends javax.swing.JDialog {
     public VistaMenu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+         ImageIcon de = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\menu.gif");
+        Icon ide = new ImageIcon(de.getImage().getScaledInstance(Jgiff.getWidth(), Jgiff.getHeight(), Image.SCALE_DEFAULT));
+        Jgiff.setIcon(ide);
+         this.repaint();
+           this.setLocationRelativeTo(this);
+         
+    }
+
+    VistaMenu() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -28,18 +43,16 @@ public class VistaMenu extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        Jgiff = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(Jgiff, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -87,5 +100,7 @@ public class VistaMenu extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Jgiff;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

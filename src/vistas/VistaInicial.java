@@ -5,6 +5,11 @@
  */
 package vistas;
 
+import java.awt.Color;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author grace
@@ -15,7 +20,24 @@ public class VistaInicial extends javax.swing.JFrame {
      * Creates new form VistaInicial
      */
     public VistaInicial() {
+     
         initComponents();
+
+//        jPanel1.setBackground(new Color(255,255,255));
+        jPanel2.setBackground(new Color(0, 179, 71,90));
+  
+        setLocationRelativeTo(null);
+//        jLabel1.setOpaque(true);
+//        jLabel1.setBackground(new Color(170,201,122,30));
+
+     ImageIcon d = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\logo.png");
+        Icon id = new ImageIcon(d.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_DEFAULT));
+        jLabel1.setIcon(id);
+     ImageIcon de = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\Pueblo.gif");
+        Icon idd = new ImageIcon(de.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
+        jLabel3.setIcon(idd);
+        
+
     }
 
     /**
@@ -27,18 +49,27 @@ public class VistaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        progreso = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        barra = new javax.swing.JProgressBar();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        progreso.setBackground(new java.awt.Color(102, 102, 102));
+        progreso.setForeground(new java.awt.Color(255, 255, 255));
+        progreso.setText("1%");
+        getContentPane().add(progreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, -1, -1));
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 330, 240));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 340));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 420, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -79,5 +110,10 @@ public class VistaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JProgressBar barra;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel2;
+    public javax.swing.JLabel progreso;
     // End of variables declaration//GEN-END:variables
 }
