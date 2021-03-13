@@ -5,7 +5,6 @@
  */
 package control;
 
-import entes.Puente;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,7 +26,6 @@ import org.json.simple.parser.JSONParser;
 public class GenerarIsla {
 
     private String ruta;
-    private ArrayList<Puente> listaObstaculos;
 
     public GenerarIsla(String ruta) {
         this.ruta = ruta;
