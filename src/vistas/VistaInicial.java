@@ -20,10 +20,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author grace
- */
+
 public class VistaInicial extends javax.swing.JFrame {
 
     barra musica = new barra();
