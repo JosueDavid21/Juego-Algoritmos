@@ -188,7 +188,7 @@ public String [] rutaDificultad(char inicio,String dificultad){
         ruta=g.rutaisla(g.arregloruta);
     for (int i = 0; i < 11; i++) {
             if (ruta.length) {
-            
+                System.out.println("dasd");
         }
         }
 switch (dificultad){
