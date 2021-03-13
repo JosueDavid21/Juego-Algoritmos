@@ -85,7 +85,7 @@ public void icono_animacion(String nombre_animacion) {
 public void icono(JLabel foto_icono, String nodo) {
         Dimension d = new Dimension(dimensiones.getDimensionPersonaje().width,dimensiones.getDimensionPersonaje().height);
         foto_icono.setSize(d);
-        ImageIcon im = new ImageIcon(getClass().getResource("/imagenes/personajes/" + nodo.toLowerCase().trim() + ".png"));
+        ImageIcon im = new ImageIcon("src/imagenes/personajes/"+nodo.toLowerCase().trim()+".png");
         ImageIcon icono = new ImageIcon(im.getImage().getScaledInstance(foto_icono.getWidth(), foto_icono.getHeight(), Image.SCALE_SMOOTH));
         foto_icono.setIcon(icono);
     }
