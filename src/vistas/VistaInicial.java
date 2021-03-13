@@ -5,8 +5,11 @@
  */
 package vistas;
 
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Image;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -16,27 +19,42 @@ import javax.swing.ImageIcon;
  */
 public class VistaInicial extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VistaInicial
-     */
     public VistaInicial() {
-     
+
         initComponents();
+        try {
+            barra musica = new barra();
+            musica.ReproducirSonido("src/musica/juego-de-tronos-2.wav",this);
+        } catch (Exception e) {
+        }
 
-//        jPanel1.setBackground(new Color(255,255,255));
-        jPanel2.setBackground(new Color(0, 179, 71,90));
-  
+        jPanel2.setBackground(new Color(0, 179, 71, 90));
         setLocationRelativeTo(null);
-//        jLabel1.setOpaque(true);
-//        jLabel1.setBackground(new Color(170,201,122,30));
-
-     ImageIcon d = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\logo.png");
+        ImageIcon d = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\logo.png");
         Icon id = new ImageIcon(d.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_DEFAULT));
         jLabel1.setIcon(id);
-     ImageIcon de = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\Pueblo.gif");
+        ImageIcon de = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\Pueblo.gif");
         Icon idd = new ImageIcon(de.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
         jLabel3.setIcon(idd);
-        
+
+    }
+
+    public void progres() {
+        IngresoUsuario iniciar = new IngresoUsuario();
+        try {
+            for (int i = 0; i <= 100; i++) {
+                Thread.sleep(90);
+                progreso.setText(Integer.toString(i) + "%");
+                barra.setValue(i);
+                if (i == 100) {
+                    this.dispose();
+                    iniciar.setVisible(true);
+
+                }
+            }
+        } catch (Exception e) {
+
+        }
 
     }
 
