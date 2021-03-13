@@ -45,7 +45,7 @@ int animacion;
 int moveX=1;
 int moveY=1;
 
-    Timer tiempo1 = new Timer(5, this);
+    Timer tiempo1 = new Timer(1, this);
     boolean izquierda = false;
     boolean derecha = false;
     boolean arriba = false;
@@ -55,9 +55,7 @@ int moveY=1;
         dimensiones = new GenerarDimension(new Point(16, 10));
         xJugador = dimensiones.getPuntoInicioJugador().x;
         yJugador = dimensiones.getPuntoInicioJugador().y;
-
-        rutaPersonaje = "src/imagenes/personajes/protagonista.jpg";
-
+        rutaPersonaje = "src/imagenes/personajes/inicio.png";
         rutaIsla = isla.getUrlImagen();
         matrizIsla = isla.getMatriz();
         initComponents();
@@ -85,16 +83,12 @@ public void icono_animacion(String nombre_animacion) {
         }
     }
 public void icono(JLabel foto_icono, String nodo) {
-        Dimension d = new Dimension(dimensiones.getWIDTH(),dimensiones.getHEIGHT());
+        Dimension d = new Dimension(dimensiones.getDimensionPersonaje().width,dimensiones.getDimensionPersonaje().height);
         foto_icono.setSize(d);
-        
         ImageIcon im = new ImageIcon(getClass().getResource("/imagenes/personajes/" + nodo.toLowerCase().trim() + ".png"));
-        ImageIcon icono = new ImageIcon(im.getImage().getScaledInstance(foto_icono.getWidth(), foto_icono.getHeight(), Image.SCALE_DEFAULT));
+        ImageIcon icono = new ImageIcon(im.getImage().getScaledInstance(foto_icono.getWidth(), foto_icono.getHeight(), Image.SCALE_SMOOTH));
         foto_icono.setIcon(icono);
     }
-
-
-
 
 //DAVID FIN
     private void generarIsla() {
@@ -114,33 +108,10 @@ public void icono(JLabel foto_icono, String nodo) {
         personaje.setSize(dimensiones.getDimensionPersonaje().width, dimensiones.getDimensionPersonaje().height);
         personaje.setIcon(iconoEscalado);
         personaje.setLocation(dimensiones.getPuntoInicioJugador());
-        add(personaje);
-    }
+        add(personaje);      
+       }
 
     private void mover(/*java.awt.event.KeyEvent evt*/) {
-////////        xJugador = personaje.getLocation().x;
-////////        yJugador = personaje.getLocation().y;
-////////        if (comprobar(evt.getKeyChar(), xJugador, yJugador)) {
-////////            switch (String.valueOf(evt.getKeyChar())) {
-////////                case "w":
-////////                    personaje.setLocation(xJugador, yJugador - dimensiones.getDimensionPersonaje().height);
-////////                    break;
-////////                case "s":
-////////                    personaje.setLocation(xJugador, yJugador + dimensiones.getDimensionPersonaje().height);
-////////                    break;
-////////                case "a":
-////////                    personaje.setLocation(xJugador - dimensiones.getDimensionPersonaje().width, yJugador);
-////////                    break;
-////////                case "d":
-////////                    personaje.setLocation(xJugador + dimensiones.getDimensionPersonaje().width, yJugador);
-////////                    break;
-////////                default:
-////////                    break;
-////////            }
-////////        }
-
- x= personaje.getLocation().x;
-y = personaje.getLocation().y;
 if (izquierda & !derecha & !arriba & !abajo) {
             x = x - moveX;
             personaje.setLocation(x, y);
@@ -162,7 +133,6 @@ if (izquierda & !derecha & !arriba & !abajo) {
             x = x + moveX;
             personaje.setLocation(x, y);
             icono_animacion("abajo");
-            System.out.println("abajo derecha");
             icono_animacion("derecha");
         } else if (abajo & izquierda) {
             y = y + moveY;
@@ -208,38 +178,11 @@ if (izquierda & !derecha & !arriba & !abajo) {
         return valorProximo < 11;
     }
 
-//    public void icono(JLabel foto_icono, String nodo) {
-////        Dimension d = new Dimension(dimensiones.getDimensionPersonaje().width, dimensiones.getDimensionPersonaje().height);
-////        foto_icono.setSize(d);
-//        Image imgEscalada = new ImageIcon(rutaPersonaje).getImage().getScaledInstance(dimensiones.getDimensionPersonaje().width,
-//                dimensiones.getDimensionPersonaje().height, Image.SCALE_SMOOTH);
-//        Icon iconoEscalado = new ImageIcon(imgEscalada);
-//        foto_icono.setIcon(iconoEscalado);
-//    }
-
     public void actionPerformed(ActionEvent c) {
-//        x = personaje.getX();
-//        y = personaje.getY();
-//        actualizar();
-//        if (comprobarnum(tecla, 4)) {
-//            mover();
-//        }
-////        mover();
-//        t = t + 1;
-//        System.out.println(t);
-////        p1.actualizar();
-////        p1.mover(personaje);
- x = personaje.getX();
+        x = personaje.getX();
         y = personaje.getY();
         actualizar();
-//        if (comprobarnum(tecla,4)) {
          mover();
-//    }
-//        mover();
-//////        t=t+1;
-//////        System.out.println(t);
-//        p1.actualizar();
-//        p1.mover(personaje);
     }
 
     /**
@@ -268,11 +211,8 @@ if (izquierda & !derecha & !arriba & !abajo) {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    int i = 0;
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-//        mover(evt);
         tiempo1.start();
-        System.out.println(i);
         if (evt.getKeyCode() == 65) {
             izquierda = true;
         } else if (evt.getKeyCode() == 68) {
@@ -281,6 +221,7 @@ if (izquierda & !derecha & !arriba & !abajo) {
             arriba = true;
         } else if (evt.getKeyCode() == 83) {
             abajo = true;
+                  
         }
         if (evt.getKeyCode() == evt.VK_ESCAPE) {
             System.exit(0);
@@ -288,28 +229,24 @@ if (izquierda & !derecha & !arriba & !abajo) {
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-//////        i++;
-//////        if (evt.getKeyCode() == 65) {
-//////            izquierda = false;
-//////            mover(evt);
-//////            icono(jLpersonaje, "izquierda");
-//////        } else if (evt.getKeyCode() == 68) {
-//////            derecha = false;
-//////            icono(jLpersonaje, "derecha");
-//////            mover(evt);
-//////        } else if (evt.getKeyCode() == 87) {
-//////            arriba = false;
-//////            icono(jLpersonaje, "arriba");
-//////            mover(evt);
-//////        } else if (evt.getKeyCode() == 83) {
-//////            abajo = false;
-//////            icono(jLpersonaje, "abajo");
-//////            mover(evt);
-//////        }
-//////        if ((!arriba && !abajo && !izquierda && !derecha)) {
-//////            tiempo1.stop();
-//////        }
+ if (evt.getKeyCode() == 65) {
+            
+            izquierda = false;
+            icono(personaje, "izquierda");
 
+        } else if (evt.getKeyCode() == 68) {
+            derecha = false;
+icono(personaje, "derecha");
+        } else if (evt.getKeyCode() == 87) {
+            arriba = false;
+icono(personaje, "arriba");
+        } else if (evt.getKeyCode() == 83) {
+            abajo = false;
+            icono(personaje, "abajo");
+        }
+        if ((!arriba && !abajo && !izquierda && !derecha)) {
+            tiempo1.stop();
+        }
 
     }//GEN-LAST:event_formKeyReleased
 
