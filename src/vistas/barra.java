@@ -30,6 +30,7 @@ public class barra {
     public static void main(String[] args) throws Exception {
         String musica= "src/musica/juego-de-tronos.wav";
         VistaInicial pre = new VistaInicial();
+        System.out.println("hola");
 //        IngresoUsuario usuario= new IngresoUsuario();
         pre.setVisible(true);
         pre.progres();
