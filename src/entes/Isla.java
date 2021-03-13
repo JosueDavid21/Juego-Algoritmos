@@ -32,4 +32,4 @@ public class Isla {
     public int[][] getMatriz() {
         return matriz;
     }
-}
+    }
