@@ -71,7 +71,7 @@ public class Grafo {
 
         }
         arregloruta = da;
-        return distancia + " KM Recorridos | La Mejor Ruta es: " + Arrays.toString(rutaisla(arregloruta));
+        return distancia + " monedas Gastadas | La Mejor Ruta es: " + Arrays.toString(rutaisla(arregloruta));
 
     }
 
@@ -142,20 +142,19 @@ public void iniciargrafo(Grafo g) {
     }
     public String[] rutaisla(char isla[]) {
         String islas[] = {
-            /*a*/"VOLCAN",
-            /*b*/"DESIERTO",
-             /*c*/"FLOR",
-             /*d*/"AMOR",
-             /*e*/"CALAVERA",
-             /*f*/"CIRCO",
-             /*g*/"MILITAR",
-             /*h*/"RUINAS",
-             /*i*/"SELVA",
-             /*j*/"PLAYA",
-             /*k*/"DULCES"};
+            /*a*/"volcan",
+            /*b*/"desierto",
+             /*c*/"flor",
+             /*d*/"amor",
+             /*e*/"calavera",
+             /*f*/"circo",
+             /*g*/"militar",
+             /*h*/"ruina",
+             /*i*/"serlva",
+             /*j*/"playa",
+             /*k*/"dulce"};
         char islaschar[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'};
         String recorridoislas[] = new String[isla.length];
-//        System.out.println("arregloruta"+Arrays.toString(arregloruta));
         for (int i = 0; i < isla.length; i++) {
             for (int j = 0; j < islaschar.length; j++) {
                 if (isla[i] == islaschar[j]) {
@@ -182,9 +181,39 @@ public void iniciargrafo(Grafo g) {
         }
         return resp;
     }
+public String [] rutaDificultad(char inicio,String dificultad){
+    String ruta[]=null;
+    Grafo g = new Grafo("abcdefghijk");
+        g.iniciargrafo(g);
+        ruta=g.rutaisla(g.arregloruta);
+    for (int i = 0; i < 11; i++) {
+            if (ruta.length) {
+            
+        }
+        }
+switch (dificultad){
+    case "facil":{
+        
+        break;
+    }
+    case "medio":{
+        
+        
+        break;
+        
+    }
+    case "dificil":{
+        
+        
+        break;
+    }
+}    
 
+    return ruta;
+}
     
-
+                
+                
     public static void main(String[] args) {
         Grafo g = new Grafo("abcdefghijk");
         g.iniciargrafo(g);
@@ -194,11 +223,12 @@ public void iniciargrafo(Grafo g) {
         char fin = 'e';
         System.out.println("RUTAS POSIBLES DESDE "+inicio+" hacia las demas islas");
 //        String respuesta=g.encontrarRutaMinimaDijkstra(inicio, fin);
+//        System.out.println(Arrays.toString(g.rutaisla(g.arregloruta)));
 //            System.out.println(respuesta);
         for (int i = 0; i < 11; i++) {
             String respuesta=g.encontrarRutaMinimaDijkstra(inicio, g.nodos[i]);
             System.out.println(respuesta);
         }
     }
-
+ 
 }
