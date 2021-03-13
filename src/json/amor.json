@@ -226,7 +226,7 @@
                     "x": 27,
                     "y": 0,
                     "index": 27,
-                    "tile": 56,
+                    "tile": 53,
                     "rot": 0,
                     "flipX": false
                 },
@@ -234,7 +234,7 @@
                     "x": 28,
                     "y": 0,
                     "index": 28,
-                    "tile": 56,
+                    "tile": 54,
                     "rot": 0,
                     "flipX": false
                 },
@@ -482,7 +482,7 @@
                     "x": 27,
                     "y": 1,
                     "index": 59,
-                    "tile": 62,
+                    "tile": 72,
                     "rot": 0,
                     "flipX": false
                 },
@@ -490,7 +490,7 @@
                     "x": 28,
                     "y": 1,
                     "index": 60,
-                    "tile": 63,
+                    "tile": 68,
                     "rot": 0,
                     "flipX": false
                 },
@@ -522,7 +522,7 @@
                     "x": 0,
                     "y": 2,
                     "index": 64,
-                    "tile": 53,
+                    "tile": 60,
                     "rot": 0,
                     "flipX": false
                 },
@@ -530,7 +530,7 @@
                     "x": 1,
                     "y": 2,
                     "index": 65,
-                    "tile": 61,
+                    "tile": 71,
                     "rot": 0,
                     "flipX": false
                 },
@@ -778,7 +778,7 @@
                     "x": 0,
                     "y": 3,
                     "index": 96,
-                    "tile": 53,
+                    "tile": 59,
                     "rot": 0,
                     "flipX": false
                 },
@@ -1650,7 +1650,7 @@
                     "x": 13,
                     "y": 6,
                     "index": 205,
-                    "tile": 58,
+                    "tile": 63,
                     "rot": 0,
                     "flipX": false
                 },
@@ -2634,7 +2634,7 @@
                     "x": 8,
                     "y": 10,
                     "index": 328,
-                    "tile": 59,
+                    "tile": 64,
                     "rot": 0,
                     "flipX": false
                 },
@@ -3338,7 +3338,7 @@
                     "x": 0,
                     "y": 13,
                     "index": 416,
-                    "tile": 54,
+                    "tile": 58,
                     "rot": 0,
                     "flipX": false
                 },
@@ -3346,7 +3346,7 @@
                     "x": 1,
                     "y": 13,
                     "index": 417,
-                    "tile": 61,
+                    "tile": 71,
                     "rot": 0,
                     "flipX": false
                 },
@@ -3594,7 +3594,7 @@
                     "x": 0,
                     "y": 14,
                     "index": 448,
-                    "tile": 54,
+                    "tile": 57,
                     "rot": 0,
                     "flipX": false
                 },
@@ -4226,7 +4226,7 @@
                     "x": 15,
                     "y": 16,
                     "index": 527,
-                    "tile": 60,
+                    "tile": 65,
                     "rot": 0,
                     "flipX": false
                 },
@@ -4610,7 +4610,7 @@
                     "x": 31,
                     "y": 17,
                     "index": 575,
-                    "tile": 65,
+                    "tile": 70,
                     "rot": 0,
                     "flipX": false
                 },
@@ -4866,7 +4866,7 @@
                     "x": 31,
                     "y": 18,
                     "index": 607,
-                    "tile": 55,
+                    "tile": 56,
                     "rot": 0,
                     "flipX": false
                 },
@@ -5106,7 +5106,7 @@
                     "x": 29,
                     "y": 19,
                     "index": 637,
-                    "tile": 64,
+                    "tile": 69,
                     "rot": 0,
                     "flipX": false
                 },
@@ -5114,7 +5114,7 @@
                     "x": 30,
                     "y": 19,
                     "index": 638,
-                    "tile": 55,
+                    "tile": 56,
                     "rot": 0,
                     "flipX": false
                 },

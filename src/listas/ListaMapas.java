@@ -22,14 +22,11 @@ public class ListaMapas {
     }
     
     private String getRutaIMG(){
-        
-        return "C:\\Users\\grace\\Desktop\\JosueTemp\\Algoritmos\\Juego-Algoritmos\\src\\imagenes\\islas\\";
-//        return separador + "Juego-Algoritmos" + separador + "src" + separador + "imagenes" + separador + "islas" + separador;
+        return "src" + separador + "imagenes" + separador + "islas" + separador;
     }
     
     private String getRutaJSON(){
-        return "C:\\Users\\grace\\Desktop\\JosueTemp\\Algoritmos\\Juego-Algoritmos\\src\\json\\";
-//        return separador + "Juego-Algoritmos" + separador + "src" + separador + "json" + separador;
+        return "src" + separador + "json" + separador;
     }
     
     public HashMap<String, Isla> getLista() {
