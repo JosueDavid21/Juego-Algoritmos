@@ -5,7 +5,6 @@
  */
 package vistas;
 
-
 import java.awt.Frame;
 import java.io.File;
 import java.io.IOException;
@@ -27,31 +26,37 @@ public class barra {
     public barra() {
 
     }
+
     public static void main(String[] args) throws Exception {
-        String musica= "src/musica/juego-de-tronos.wav";
+        String musica = "src/musica/juego-de-tronos.wav";
         VistaInicial pre = new VistaInicial();
-        System.out.println("hola");
 //        IngresoUsuario usuario= new IngresoUsuario();
         pre.setVisible(true);
         pre.progres();
-               
+
     }
 
-    public void ReproducirSonido(String nombreSonido,Frame ven) throws LineUnavailableException, UnsupportedAudioFileException{
-       Clip clip = AudioSystem.getClip();
-//      if(ven.){
+    public void ReproducirSonido(String nombreSonido, Frame ven) throws LineUnavailableException, UnsupportedAudioFileException {
+
         try {
- 
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido).getAbsoluteFile());
-       
-        clip.open(audioInputStream);
-        clip.start();
-        
-       } catch(IOException | LineUnavailableException ex) {
-         System.out.println("Error al reproducir el sonido.");
-       }
-          clip.stop();
-      }
-     }
+            Clip clip = AudioSystem.getClip();
+           
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido).getAbsoluteFile());
+
+                clip.open(audioInputStream);
+                clip.start();
+            
+                clip.stop();
+            
+
+        } catch (IOException | LineUnavailableException ex) {
+            System.out.println("Error al reproducir el sonido.");
+        }
+
+    }
+
+    
+}
+
 //}
 

@@ -8,6 +8,13 @@ package vistas;
 import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Icon;
@@ -19,21 +26,45 @@ import javax.swing.ImageIcon;
  */
 public class VistaInicial extends javax.swing.JFrame {
 
+    barra musica = new barra();
+    String nombresonido ="src/musica/juego-de-tronos-2.wav";
+    Clip clip = null;
     public VistaInicial() {
 
         initComponents();
-        try {
-            barra musica = new barra();
-            musica.ReproducirSonido("src\\musica\\juego-de-tronos-2.wav",this);
-        } catch (Exception e) {
+
+//        try {
+//
+//            musica.ReproducirSonido("src/musica/juego-de-tronos-2.wav", this);
+//        } catch (Exception e) {
+//        }
+            try {
+            clip = AudioSystem.getClip();
+           
+                AudioInputStream audioInputStream =null;
+            try {
+                audioInputStream = AudioSystem.getAudioInputStream(new File(nombresonido).getAbsoluteFile());
+            } catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(VistaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+                clip.open(audioInputStream);
+                clip.start();
+         
+             
+            
+
+        } catch (IOException | LineUnavailableException ex) {
+            System.out.println("Error al reproducir el sonido.");
         }
+
 
         jPanel2.setBackground(new Color(0, 179, 71, 90));
         setLocationRelativeTo(null);
-        ImageIcon d = new ImageIcon("src\\imagenes\\ayuda\\logo.png");
+        ImageIcon d = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\logo.png");
         Icon id = new ImageIcon(d.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_DEFAULT));
         jLabel1.setIcon(id);
-        ImageIcon de = new ImageIcon("src\\imagenes\\ayuda\\Pueblo.gif");
+        ImageIcon de = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\Pueblo.gif");
         Icon idd = new ImageIcon(de.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
         jLabel3.setIcon(idd);
 
@@ -47,7 +78,9 @@ public class VistaInicial extends javax.swing.JFrame {
                 progreso.setText(Integer.toString(i) + "%");
                 barra.setValue(i);
                 if (i == 100) {
-                    this.dispose();
+                    musica.ReproducirSonido("src/musica/juego-de-tronos-2.wav", this);
+                    clip.stop();
+                    this.dispose();                   
                     iniciar.setVisible(true);
 
                 }
@@ -57,6 +90,7 @@ public class VistaInicial extends javax.swing.JFrame {
         }
 
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
