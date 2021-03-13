@@ -5,136 +5,155 @@
  */
 package vistas;
 
+import entes.GenerarDimension;
 import entes.Isla;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
 /**
  *
  * @author grace
  */
-public class VistaIsla extends javax.swing.JFrame {
+public class VistaIsla extends javax.swing.JFrame implements ActionListener {
 
     /**
      * Creates new form Isla
      */
-    private static int width = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private static int height = Toolkit.getDefaultToolkit().getScreenSize().height;
-    private static int xJugador = width / 2;
-    private static int yJugador = height / 2;
+    private static int xJugador;
+    private static int yJugador;
     private static String rutaPersonaje;
     private static String rutaIsla;
-    private final Dimension cuadro;
     private int[][] matrizIsla;
-    private static final int CUADROS_VERT = 20;
-    private static final int CUADROS_HOR = 32;
 
+    GenerarDimension dimensiones;
+
+    JLabel jLfondo = new JLabel();
     JLabel jLpersonaje = new JLabel();
     JLabel jLMapa = new JLabel();
 
+    Timer tiempo1 = new Timer(5, this);
+    boolean izquierda = false;
+    boolean derecha = false;
+    boolean arriba = false;
+    boolean abajo = false;
+
     public VistaIsla(Isla isla) {
-        rutaIsla = isla.getUrlImagen();
+        dimensiones = new GenerarDimension(new Point(16, 10));
+        xJugador = dimensiones.getPuntoInicioJugador().x;
+        yJugador = dimensiones.getPuntoInicioJugador().y;
+
         rutaPersonaje = "src/imagenes/personajes/protagonista.jpg";
+
+        rutaIsla = isla.getUrlImagen();
         matrizIsla = isla.getMatriz();
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        this.setSize(width, height);
+        this.setSize(dimensiones.getWIDTH(), dimensiones.getHEIGHT());
         this.setResizable(false);
         this.setLocation(0, 0);
-        this.setBackground(Color.BLUE);
-
-        cuadro = generarDimCuadro();
+        this.getContentPane().setBackground(Color.black);
         generarPersonaje(rutaPersonaje);
         generarIsla();
     }
 
-    private Dimension generarDimCuadro() {
-        double w = width / CUADROS_HOR;
-        double wDecimal = w % 1;
-        double h = height / CUADROS_VERT;
-        double hDecimal = h % 1;
-        int wEntero = (int) (w - wDecimal);
-        int hEntero = (int) (h - hDecimal);
-        if(width - (wEntero*CUADROS_HOR) != 0)
-            width = wEntero*CUADROS_HOR;
-        if(height - (hEntero*CUADROS_VERT) != 0)
-            height = hEntero*CUADROS_VERT;
-        
-        return new Dimension((int) (w - wDecimal), (int) (h - hDecimal));
-    }
-
     private void generarIsla() {
-        jLMapa.setLocation(0, 0);
-        jLMapa.setSize(width, height);
+        jLMapa.setLocation(dimensiones.getPuntoInicioJuego());
+        jLMapa.setSize(dimensiones.getDimensionJuego());
         ImageIcon fot = new ImageIcon(rutaIsla);
-        Icon icono = new ImageIcon(fot.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+        Icon icono = new ImageIcon(fot.getImage().getScaledInstance(dimensiones.getDimensionJuego().width, dimensiones.getDimensionJuego().height, Image.SCALE_DEFAULT));
         jLMapa.setIcon(icono);
         add(jLMapa);
         this.repaint();
     }
 
     private void generarPersonaje(String ruta) {
-        Image imgEscalada = new ImageIcon(ruta).getImage().getScaledInstance(cuadro.width, cuadro.height, Image.SCALE_SMOOTH);
+        Image imgEscalada = new ImageIcon(ruta).getImage().getScaledInstance(dimensiones.getDimensionPersonaje().width,
+                dimensiones.getDimensionPersonaje().height, Image.SCALE_SMOOTH);
         Icon iconoEscalado = new ImageIcon(imgEscalada);
-        jLpersonaje.setSize(cuadro.width, cuadro.height);
+        jLpersonaje.setSize(dimensiones.getDimensionPersonaje().width, dimensiones.getDimensionPersonaje().height);
         jLpersonaje.setIcon(iconoEscalado);
-        jLpersonaje.setLocation(xJugador, yJugador);
-        jLpersonaje.setVisible(true);
+        jLpersonaje.setLocation(dimensiones.getPuntoInicioJugador());
         add(jLpersonaje);
     }
-    
+
     private void mover(java.awt.event.KeyEvent evt) {
         xJugador = jLpersonaje.getLocation().x;
         yJugador = jLpersonaje.getLocation().y;
-        if(comprobar(evt.getKeyChar(), xJugador, yJugador)){
-            switch(String.valueOf(evt.getKeyChar())){
-            case "w":
-                jLpersonaje.setLocation(xJugador, yJugador-cuadro.height);
-                break;
-            case "s":
-                jLpersonaje.setLocation(xJugador, yJugador+cuadro.height);
-                break;
-            case "a":
-                jLpersonaje.setLocation(xJugador-cuadro.width, yJugador);
-                break;
-            case "d":
-                jLpersonaje.setLocation(xJugador+cuadro.width, yJugador);
-                break;
-            default:
-                break;
+        if (comprobar(evt.getKeyChar(), xJugador, yJugador)) {
+            switch (String.valueOf(evt.getKeyChar())) {
+                case "w":
+                    jLpersonaje.setLocation(xJugador, yJugador - dimensiones.getDimensionPersonaje().height);
+                    break;
+                case "s":
+                    jLpersonaje.setLocation(xJugador, yJugador + dimensiones.getDimensionPersonaje().height);
+                    break;
+                case "a":
+                    jLpersonaje.setLocation(xJugador - dimensiones.getDimensionPersonaje().width, yJugador);
+                    break;
+                case "d":
+                    jLpersonaje.setLocation(xJugador + dimensiones.getDimensionPersonaje().width, yJugador);
+                    break;
+                default:
+                    break;
+            }
         }
-        }
-        
+
     }
 
     public boolean comprobar(char tecla, int x, int y) {
-        int i = x/cuadro.width;
-        int j = y/cuadro.height;
+        int i = x / dimensiones.getDimensionPersonaje().width;
+        int j = y / dimensiones.getDimensionPersonaje().height;
         int valorProximo = 0;
-        switch(String.valueOf(tecla)){
+        switch (String.valueOf(tecla)) {
             case "w":
-                valorProximo = matrizIsla[i][j-1];
+                valorProximo = matrizIsla[i][j - 1];
                 break;
             case "s":
-                valorProximo = matrizIsla[i][j+1];
+                valorProximo = matrizIsla[i][j + 1];
                 break;
             case "a":
-                valorProximo = matrizIsla[i-1][j];
+                valorProximo = matrizIsla[i - 1][j];
                 break;
             case "d":
-                valorProximo = matrizIsla[i+1][j];
+                valorProximo = matrizIsla[i + 1][j];
                 break;
             default:
                 break;
         }
         return valorProximo < 11;
     }
-    
+
+    public void icono(JLabel foto_icono, String nodo) {
+//        Dimension d = new Dimension(dimensiones.getDimensionPersonaje().width, dimensiones.getDimensionPersonaje().height);
+//        foto_icono.setSize(d);
+        Image imgEscalada = new ImageIcon(rutaPersonaje).getImage().getScaledInstance(dimensiones.getDimensionPersonaje().width,
+                dimensiones.getDimensionPersonaje().height, Image.SCALE_SMOOTH);
+        Icon iconoEscalado = new ImageIcon(imgEscalada);
+        foto_icono.setIcon(iconoEscalado);
+    }
+
+    public void actionPerformed(ActionEvent c) {
+//        x = personaje.getX();
+//        y = personaje.getY();
+//        actualizar();
+//        if (comprobarnum(tecla, 4)) {
+//            mover();
+//        }
+////        mover();
+//        t = t + 1;
+//        System.out.println(t);
+////        p1.actualizar();
+////        p1.mover(personaje);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -145,57 +164,64 @@ public class VistaIsla extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(51, 51, 255));
-        setForeground(new java.awt.Color(51, 51, 255));
+        setBackground(new java.awt.Color(0, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setForeground(new java.awt.Color(0, 0, 0));
         setUndecorated(true);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
             }
         });
         getContentPane().setLayout(null);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    int i = 0;
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        mover(evt);
+//        mover(evt);
+        tiempo1.start();
+        System.out.println(i);
+        if (evt.getKeyCode() == 65) {
+            izquierda = true;
+        } else if (evt.getKeyCode() == 68) {
+            derecha = true;
+        } else if (evt.getKeyCode() == 87) {
+            arriba = true;
+        } else if (evt.getKeyCode() == 83) {
+            abajo = true;
+        }
+        if (evt.getKeyCode() == evt.VK_ESCAPE) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_formKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Isla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Isla().setVisible(true);
-//            }
-//        });
-//    }
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        i++;
+        if (evt.getKeyCode() == 65) {
+            izquierda = false;
+            mover(evt);
+            icono(jLpersonaje, "izquierda");
+        } else if (evt.getKeyCode() == 68) {
+            derecha = false;
+            icono(jLpersonaje, "derecha");
+            mover(evt);
+        } else if (evt.getKeyCode() == 87) {
+            arriba = false;
+            icono(jLpersonaje, "arriba");
+            mover(evt);
+        } else if (evt.getKeyCode() == 83) {
+            abajo = false;
+            icono(jLpersonaje, "abajo");
+            mover(evt);
+        }
+        if ((!arriba && !abajo && !izquierda && !derecha)) {
+            tiempo1.stop();
+        }
+    }//GEN-LAST:event_formKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
