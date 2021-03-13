@@ -24,16 +24,16 @@ public class VistaInicial extends javax.swing.JFrame {
         initComponents();
         try {
             barra musica = new barra();
-            musica.ReproducirSonido("src/musica/juego-de-tronos-2.wav",this);
+            musica.ReproducirSonido("src\\musica\\juego-de-tronos-2.wav",this);
         } catch (Exception e) {
         }
 
         jPanel2.setBackground(new Color(0, 179, 71, 90));
         setLocationRelativeTo(null);
-        ImageIcon d = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\logo.png");
+        ImageIcon d = new ImageIcon("src\\imagenes\\ayuda\\logo.png");
         Icon id = new ImageIcon(d.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_DEFAULT));
         jLabel1.setIcon(id);
-        ImageIcon de = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\Pueblo.gif");
+        ImageIcon de = new ImageIcon("src\\imagenes\\ayuda\\Pueblo.gif");
         Icon idd = new ImageIcon(de.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
         jLabel3.setIcon(idd);
 
