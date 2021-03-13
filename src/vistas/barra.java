@@ -36,9 +36,9 @@ public class barra {
                
     }
 
-    public void ReproducirSonido(String nombreSonido) throws LineUnavailableException, UnsupportedAudioFileException{
+    public void ReproducirSonido(String nombreSonido,Frame ven) throws LineUnavailableException, UnsupportedAudioFileException{
        Clip clip = AudioSystem.getClip();
-//        if(ven.isVisible()){
+//      if(ven.){
         try {
  
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido).getAbsoluteFile());
@@ -49,9 +49,8 @@ public class barra {
        } catch(IOException | LineUnavailableException ex) {
          System.out.println("Error al reproducir el sonido.");
        }
-//       }else{
-//      
-//          clip.stop();
+          clip.stop();
       }
      }
+//}
 

@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -29,7 +30,6 @@ import javax.swing.JOptionPane;
  */
 public class IngresoUsuario extends javax.swing.JFrame implements Serializable {
 
-    
     public IngresoUsuario() {
         initComponents();
         ImageIcon d = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\AnyConv.com__Tus personajes favoritos de la infancia se han convertido en psicópatas _ Ilustración.png");
@@ -38,20 +38,12 @@ public class IngresoUsuario extends javax.swing.JFrame implements Serializable {
         ImageIcon de = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\inicio secion.gif");
         Icon ide = new ImageIcon(de.getImage().getScaledInstance(imag.getWidth(), imag.getHeight(), Image.SCALE_DEFAULT));
         imag.setIcon(ide);
-//        ImageIcon dee = new ImageIcon("C:\\Users\\edgar\\OneDrive\\Documentos\\NetBeansProjects\\Juego-Algoritmos\\src\\imagenes\\ayuda\\inicioU.jpg");
-//        Icon iide = new ImageIcon(dee.getImage().getScaledInstance(im.getWidth(), im.getHeight(), Image.SCALE_DEFAULT));
-//        im.setIcon(iide);
-        
-//        jPanel1.setBackground(new Color(188, 111,171,50));
-  
         setLocationRelativeTo(null);
         jPanel1.setOpaque(true);
-        jPanel1.setBackground(new Color(255,255,0,100));
+        jPanel1.setBackground(new Color(255, 255, 0, 100));
         this.setLocationRelativeTo(this);
-    }
-    
 
-   
+    }
 
     /**
      * Creates new form IngresoUsuario
@@ -77,6 +69,7 @@ public class IngresoUsuario extends javax.swing.JFrame implements Serializable {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -148,7 +141,6 @@ public class IngresoUsuario extends javax.swing.JFrame implements Serializable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     public boolean buscarUsuario(String nombre, String contraseña) throws FileNotFoundException, IOException {
         boolean bandera = false;
         Registro p = new Registro();
@@ -175,17 +167,16 @@ public class IngresoUsuario extends javax.swing.JFrame implements Serializable {
 
             if (buscarUsuario(txt1.getText(), pass3.getText()) == true) {
                 JOptionPane.showMessageDialog(null, "Bienvenido " + txt1.getText());
-                VistaMenu p = new VistaMenu();
-                p.setVisible(true);
-                //Cerramos vNueva
+                VistaMenu v = new VistaMenu(this, true);
+                v.setVisible(true);
                 this.dispose();
+
             } else {
                 if (txt1.getText().equals("") && pass3.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "Campos Vacios Ingrese Usuario y Contraseña");
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuario o Contraseña mal ingresados");
                 }
-
             }
         } catch (IOException ex) {
             Logger.getLogger(IngresoUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,8 +187,8 @@ public class IngresoUsuario extends javax.swing.JFrame implements Serializable {
     private void btnIngresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresar1ActionPerformed
         Registro d = new Registro();
         d.setVisible(true);
-                 
-        
+
+
     }//GEN-LAST:event_btnIngresar1ActionPerformed
 
     private void btnIngresar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresar1MouseEntered
