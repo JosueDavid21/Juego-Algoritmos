@@ -36,8 +36,14 @@ public class VistaIsla extends javax.swing.JFrame implements ActionListener {
     GenerarDimension dimensiones;
 
     JLabel jLfondo = new JLabel();
-    JLabel jLpersonaje = new JLabel();
+    JLabel personaje = new JLabel();
     JLabel jLMapa = new JLabel();
+int x;
+int y;
+int animacion;
+//movimiento en x y 
+int moveX=1;
+int moveY=1;
 
     Timer tiempo1 = new Timer(5, this);
     boolean izquierda = false;
@@ -63,7 +69,34 @@ public class VistaIsla extends javax.swing.JFrame implements ActionListener {
         generarPersonaje(rutaPersonaje);
         generarIsla();
     }
+    //DAVID INICIO
+public void actualizar() {
+        if (animacion < 32000) {
+            animacion++;
+        } else {
+            animacion = 0;
+        }
+    }
+public void icono_animacion(String nombre_animacion) {
+        if (animacion % 20> 8) {
+            icono(personaje, nombre_animacion + "1");
+        } else {
+            icono(personaje, nombre_animacion + "2");
+        }
+    }
+public void icono(JLabel foto_icono, String nodo) {
+        Dimension d = new Dimension(dimensiones.getWIDTH(),dimensiones.getHEIGHT());
+        foto_icono.setSize(d);
+        
+        ImageIcon im = new ImageIcon(getClass().getResource("/imagenes/personajes/" + nodo.toLowerCase().trim() + ".png"));
+        ImageIcon icono = new ImageIcon(im.getImage().getScaledInstance(foto_icono.getWidth(), foto_icono.getHeight(), Image.SCALE_DEFAULT));
+        foto_icono.setIcon(icono);
+    }
 
+
+
+
+//DAVID FIN
     private void generarIsla() {
         jLMapa.setLocation(dimensiones.getPuntoInicioJuego());
         jLMapa.setSize(dimensiones.getDimensionJuego());
@@ -78,34 +111,78 @@ public class VistaIsla extends javax.swing.JFrame implements ActionListener {
         Image imgEscalada = new ImageIcon(ruta).getImage().getScaledInstance(dimensiones.getDimensionPersonaje().width,
                 dimensiones.getDimensionPersonaje().height, Image.SCALE_SMOOTH);
         Icon iconoEscalado = new ImageIcon(imgEscalada);
-        jLpersonaje.setSize(dimensiones.getDimensionPersonaje().width, dimensiones.getDimensionPersonaje().height);
-        jLpersonaje.setIcon(iconoEscalado);
-        jLpersonaje.setLocation(dimensiones.getPuntoInicioJugador());
-        add(jLpersonaje);
+        personaje.setSize(dimensiones.getDimensionPersonaje().width, dimensiones.getDimensionPersonaje().height);
+        personaje.setIcon(iconoEscalado);
+        personaje.setLocation(dimensiones.getPuntoInicioJugador());
+        add(personaje);
     }
 
-    private void mover(java.awt.event.KeyEvent evt) {
-        xJugador = jLpersonaje.getLocation().x;
-        yJugador = jLpersonaje.getLocation().y;
-        if (comprobar(evt.getKeyChar(), xJugador, yJugador)) {
-            switch (String.valueOf(evt.getKeyChar())) {
-                case "w":
-                    jLpersonaje.setLocation(xJugador, yJugador - dimensiones.getDimensionPersonaje().height);
-                    break;
-                case "s":
-                    jLpersonaje.setLocation(xJugador, yJugador + dimensiones.getDimensionPersonaje().height);
-                    break;
-                case "a":
-                    jLpersonaje.setLocation(xJugador - dimensiones.getDimensionPersonaje().width, yJugador);
-                    break;
-                case "d":
-                    jLpersonaje.setLocation(xJugador + dimensiones.getDimensionPersonaje().width, yJugador);
-                    break;
-                default:
-                    break;
-            }
-        }
+    private void mover(/*java.awt.event.KeyEvent evt*/) {
+////////        xJugador = personaje.getLocation().x;
+////////        yJugador = personaje.getLocation().y;
+////////        if (comprobar(evt.getKeyChar(), xJugador, yJugador)) {
+////////            switch (String.valueOf(evt.getKeyChar())) {
+////////                case "w":
+////////                    personaje.setLocation(xJugador, yJugador - dimensiones.getDimensionPersonaje().height);
+////////                    break;
+////////                case "s":
+////////                    personaje.setLocation(xJugador, yJugador + dimensiones.getDimensionPersonaje().height);
+////////                    break;
+////////                case "a":
+////////                    personaje.setLocation(xJugador - dimensiones.getDimensionPersonaje().width, yJugador);
+////////                    break;
+////////                case "d":
+////////                    personaje.setLocation(xJugador + dimensiones.getDimensionPersonaje().width, yJugador);
+////////                    break;
+////////                default:
+////////                    break;
+////////            }
+////////        }
 
+ x= personaje.getLocation().x;
+y = personaje.getLocation().y;
+if (izquierda & !derecha & !arriba & !abajo) {
+            x = x - moveX;
+            personaje.setLocation(x, y);
+            icono_animacion("izquierda");
+        } else if (derecha & !arriba & !abajo & !izquierda) {
+            x = x + moveX;
+            personaje.setLocation(x, y);
+            icono_animacion("derecha");
+        } else if (arriba & !abajo & !izquierda & !derecha) {
+            y = y - moveY;
+            personaje.setLocation(x, y);
+            icono_animacion("arriba");
+        } else if (abajo & !izquierda & !derecha & !arriba) {
+            y = y + moveY;
+            personaje.setLocation(x, y);
+            icono_animacion("abajo");
+        } else if (abajo & derecha) {
+            y = y + moveY;
+            x = x + moveX;
+            personaje.setLocation(x, y);
+            icono_animacion("abajo");
+            System.out.println("abajo derecha");
+            icono_animacion("derecha");
+        } else if (abajo & izquierda) {
+            y = y + moveY;
+            x = x - moveX;
+            personaje.setLocation(x, y);
+            icono_animacion("abajo");
+            icono_animacion("izquierda");
+        } else if (arriba & derecha) {
+            y = y - moveY;
+            x = x + moveX;
+            personaje.setLocation(x, y);
+            icono_animacion("arriba");
+            icono_animacion("derecha");
+        } else if (arriba & izquierda) {
+            y = y - moveY;
+            x = x - moveX;
+            personaje.setLocation(x, y);
+            icono_animacion("arriba");
+            icono_animacion("izquierda");
+        }
     }
 
     public boolean comprobar(char tecla, int x, int y) {
@@ -131,14 +208,14 @@ public class VistaIsla extends javax.swing.JFrame implements ActionListener {
         return valorProximo < 11;
     }
 
-    public void icono(JLabel foto_icono, String nodo) {
-//        Dimension d = new Dimension(dimensiones.getDimensionPersonaje().width, dimensiones.getDimensionPersonaje().height);
-//        foto_icono.setSize(d);
-        Image imgEscalada = new ImageIcon(rutaPersonaje).getImage().getScaledInstance(dimensiones.getDimensionPersonaje().width,
-                dimensiones.getDimensionPersonaje().height, Image.SCALE_SMOOTH);
-        Icon iconoEscalado = new ImageIcon(imgEscalada);
-        foto_icono.setIcon(iconoEscalado);
-    }
+//    public void icono(JLabel foto_icono, String nodo) {
+////        Dimension d = new Dimension(dimensiones.getDimensionPersonaje().width, dimensiones.getDimensionPersonaje().height);
+////        foto_icono.setSize(d);
+//        Image imgEscalada = new ImageIcon(rutaPersonaje).getImage().getScaledInstance(dimensiones.getDimensionPersonaje().width,
+//                dimensiones.getDimensionPersonaje().height, Image.SCALE_SMOOTH);
+//        Icon iconoEscalado = new ImageIcon(imgEscalada);
+//        foto_icono.setIcon(iconoEscalado);
+//    }
 
     public void actionPerformed(ActionEvent c) {
 //        x = personaje.getX();
@@ -152,6 +229,17 @@ public class VistaIsla extends javax.swing.JFrame implements ActionListener {
 //        System.out.println(t);
 ////        p1.actualizar();
 ////        p1.mover(personaje);
+ x = personaje.getX();
+        y = personaje.getY();
+        actualizar();
+//        if (comprobarnum(tecla,4)) {
+         mover();
+//    }
+//        mover();
+//////        t=t+1;
+//////        System.out.println(t);
+//        p1.actualizar();
+//        p1.mover(personaje);
     }
 
     /**
@@ -200,27 +288,29 @@ public class VistaIsla extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-        i++;
-        if (evt.getKeyCode() == 65) {
-            izquierda = false;
-            mover(evt);
-            icono(jLpersonaje, "izquierda");
-        } else if (evt.getKeyCode() == 68) {
-            derecha = false;
-            icono(jLpersonaje, "derecha");
-            mover(evt);
-        } else if (evt.getKeyCode() == 87) {
-            arriba = false;
-            icono(jLpersonaje, "arriba");
-            mover(evt);
-        } else if (evt.getKeyCode() == 83) {
-            abajo = false;
-            icono(jLpersonaje, "abajo");
-            mover(evt);
-        }
-        if ((!arriba && !abajo && !izquierda && !derecha)) {
-            tiempo1.stop();
-        }
+//////        i++;
+//////        if (evt.getKeyCode() == 65) {
+//////            izquierda = false;
+//////            mover(evt);
+//////            icono(jLpersonaje, "izquierda");
+//////        } else if (evt.getKeyCode() == 68) {
+//////            derecha = false;
+//////            icono(jLpersonaje, "derecha");
+//////            mover(evt);
+//////        } else if (evt.getKeyCode() == 87) {
+//////            arriba = false;
+//////            icono(jLpersonaje, "arriba");
+//////            mover(evt);
+//////        } else if (evt.getKeyCode() == 83) {
+//////            abajo = false;
+//////            icono(jLpersonaje, "abajo");
+//////            mover(evt);
+//////        }
+//////        if ((!arriba && !abajo && !izquierda && !derecha)) {
+//////            tiempo1.stop();
+//////        }
+
+
     }//GEN-LAST:event_formKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
