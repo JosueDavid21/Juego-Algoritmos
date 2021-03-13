@@ -29,6 +29,9 @@ public class GenerarDimension {
     
     private static Dimension dimensionMenu , dimensionCuadro, dimensionPersonaje, dimensionJuego;
 
+    public GenerarDimension() {
+    }
+    
     public GenerarDimension(Point puntoInicial) {
         int sobraY = (HEIGHT - (int)(HEIGHT*POS_MENU)) % CUADROS_V;
         int sobraX = WIDTH%CUADROS_H;
@@ -75,5 +78,11 @@ public class GenerarDimension {
 
     public static Dimension getDimensionCuadro() {
         return dimensionCuadro;
+    }
+    
+    public int[] getPosicionActual(int posX, int posY){
+        int[] retorno = new int[2];
+        
+        return retorno;
     }
 }
